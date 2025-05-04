@@ -23,8 +23,12 @@ export default function Home() {
       if (!response.ok) throw new Error("Failed to extract metadata");
       const data = await response.json();
       setMetadata([data]);
-    } catch (err: any) {
-      setError(err.message || "Unknown error");
+    } catch (err: unknown) {
+      if (typeof err === "object" && err !== null && "message" in err && typeof (err as any).message === "string") {
+        setError((err as any).message);
+      } else {
+        setError("Unknown error");
+      }
     } finally {
       setLoading(false);
     }
