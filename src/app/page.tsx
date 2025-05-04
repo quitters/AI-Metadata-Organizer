@@ -24,8 +24,8 @@ export default function Home() {
       const data = await response.json();
       setMetadata([data]);
     } catch (err: unknown) {
-      if (typeof err === "object" && err !== null && "message" in err && typeof (err as any).message === "string") {
-        setError((err as any).message);
+      if (typeof err === "object" && err !== null && "message" in err && typeof (err as { message?: unknown }).message === "string") {
+        setError((err as { message: string }).message);
       } else {
         setError("Unknown error");
       }
