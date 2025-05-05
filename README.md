@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Image Manager WebApp
 
-## Getting Started
+A full-stack application for uploading images and extracting AI-generated metadata, featuring a modern Next.js frontend and a FastAPI backend.
 
-First, run the development server:
+---
 
+## Features
+- Upload images and extract AI metadata (Midjourney, etc)
+- Light/Dark mode toggle
+- Responsive, accessible UI
+- FastAPI backend for metadata extraction
+
+---
+
+## Local Development
+
+### 1. Frontend (Next.js)
 ```bash
+cd webapp-image-manager
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Visit [http://localhost:3000](http://localhost:3000) to use the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Backend (FastAPI)
+```bash
+cd webapp-image-manager
+pip install -r requirements.txt
+python -m uvicorn src.app.api.extract-metadata:app --reload --port 8000
+```
+The backend will be available at [http://localhost:8000](http://localhost:8000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+### Frontend (Vercel)
+- Deploy this directory to Vercel as a Next.js app (no extra config needed).
 
-To learn more about Next.js, take a look at the following resources:
+### Backend (FastAPI)
+- **Vercel does NOT natively support FastAPI/Python backends.**
+- Deploy your FastAPI backend to a Python-friendly host (e.g. [Render](https://render.com), [Railway](https://railway.app), [Fly.io](https://fly.io)).
+- Update your frontend API URL to point to the deployed backend (not localhost).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment Variables
+- If you use environment variables, add them to `.env.local` (for Next.js) and `.env` (for FastAPI), and ensure they are listed in `.gitignore`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
+- `.gitignore` is set up for Node.js, Next.js, and Python.
+- Both frontend and backend code are in this directory for convenience, but only the frontend will run on Vercel.
+- For production, you must deploy the backend separately and configure the frontend to use the correct API URL.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## License
+MIT
